@@ -15,7 +15,7 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private int rez = 10;
+        private int rez = 20;
         private int cols;
         private int rows;
 
@@ -52,8 +52,8 @@ namespace MarchingSquares
                 {
                     ellipses[i, j] = new Ellipse()
                     {
-                        Height = 1,
-                        Width = 1,
+                        Height = rez * 0.4,
+                        Width = rez * 0.4,
                         Fill = Brushes.White,
                         Opacity = 1,
                     };
@@ -72,8 +72,8 @@ namespace MarchingSquares
                 for (int j = 0; j < rows; j++)
                 {
                     ellipses[i, j].Opacity = field[i, j];
-                    Canvas.SetLeft(ellipses[i, j], i * rez); // add half of the ellipse;
-                    Canvas.SetTop(ellipses[i, j], j * rez);
+                    Canvas.SetLeft(ellipses[i, j], i * rez + ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
+                    Canvas.SetTop(ellipses[i, j], j * rez + ellipses[i, j].ActualHeight / 2);
                 }
         }
     }
