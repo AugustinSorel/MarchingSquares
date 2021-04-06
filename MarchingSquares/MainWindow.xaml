@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarchingSquares"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Black"
+        KeyDown="Window_KeyDown"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="500" Width="500">
+    <Canvas>
         
-    </Grid>
+    </Canvas>
 </Window>
