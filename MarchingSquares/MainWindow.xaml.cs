@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace MarchingSquares
 {
@@ -12,6 +14,8 @@ namespace MarchingSquares
         private int rez = 10;
         private int cols;
         private int rows;
+
+        private DispatcherTimer dispatcherTimer;
 
         public MainWindow()
         {
@@ -31,6 +35,21 @@ namespace MarchingSquares
             cols = (int)canvas.ActualWidth / rez;
             rows = (int)canvas.ActualHeight / rez;
             field = new float[cols, rows];
+
+            Random random = new Random();
+
+            for (int i = 0; i < cols; i++)
+                for (int j = 0; j < rows; j++)
+                    field[i, j] = random.Next(0, 1);
+
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(HandleDraw);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            dispatcherTimer.Start();
+        }
+
+        private void HandleDraw(object sender, EventArgs e)
+        {
         }
     }
 }
