@@ -13,7 +13,7 @@ namespace MarchingSquares
     /// </summary>
     public partial class MainWindow : Window
     {
-        private float[,] field;
+        private int[,] field;
         private Ellipse[,] ellipses;
         private int rez = 20;
         private int cols;
@@ -38,13 +38,14 @@ namespace MarchingSquares
         {
             cols = (int)canvas.ActualWidth / rez;
             rows = (int)canvas.ActualHeight / rez;
-            field = new float[cols, rows];
+            field = new int[cols, rows];
 
             Random random = new Random();
 
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
-                    field[i, j] = (float)random.NextDouble();            
+                    field[i, j] = random.Next(0, 2);
+                    //field[i, j] = (float)random.NextDouble();            
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
             for (int i = 0; i < cols; i++)
@@ -71,7 +72,10 @@ namespace MarchingSquares
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
-                    ellipses[i, j].Opacity = field[i, j];
+                    if (field[i, j] == 0)
+                        ellipses[i, j].Fill = Brushes.Black;
+
+                    //ellipses[i, j].Opacity = field[i, j];
                     Canvas.SetLeft(ellipses[i, j], i * rez + ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
                     Canvas.SetTop(ellipses[i, j], j * rez + ellipses[i, j].ActualHeight / 2);
                 }
