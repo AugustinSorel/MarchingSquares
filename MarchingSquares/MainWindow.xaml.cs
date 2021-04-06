@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace MarchingSquares
@@ -11,6 +14,7 @@ namespace MarchingSquares
     public partial class MainWindow : Window
     {
         private float[,] field;
+        private Ellipse[,] ellipses;
         private int rez = 10;
         private int cols;
         private int rows;
@@ -40,7 +44,21 @@ namespace MarchingSquares
 
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
-                    field[i, j] = random.Next(0, 1);
+                    field[i, j] = (float)random.NextDouble();            
+
+            ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
+            for (int i = 0; i < cols; i++)
+                for (int j = 0; j < rows; j++)
+                {
+                    ellipses[i, j] = new Ellipse()
+                    {
+                        Height = 1,
+                        Width = 1,
+                        Fill = Brushes.White,
+                        Opacity = 1,
+                    };
+                    canvas.Children.Add(ellipses[i, j]);
+                }
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(HandleDraw);
@@ -50,6 +68,13 @@ namespace MarchingSquares
 
         private void HandleDraw(object sender, EventArgs e)
         {
+            for (int i = 0; i < cols; i++)
+                for (int j = 0; j < rows; j++)
+                {
+                    ellipses[i, j].Opacity = field[i, j];
+                    Canvas.SetLeft(ellipses[i, j], i * rez); // add half of the ellipse;
+                    Canvas.SetTop(ellipses[i, j], j * rez);
+                }
         }
     }
 }
