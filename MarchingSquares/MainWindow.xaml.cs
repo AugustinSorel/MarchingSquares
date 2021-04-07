@@ -79,6 +79,27 @@ namespace MarchingSquares
                     Canvas.SetLeft(ellipses[i, j], i * rez + ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
                     Canvas.SetTop(ellipses[i, j], j * rez + ellipses[i, j].ActualHeight / 2);
                 }
+
+            for (int i = 0; i < cols; i++)
+                for (int j = 0; j < rows; j++)
+                {
+                    float x = i * rez;
+                    float y = j * rez;
+                    Vector a = new Vector(x + rez * 0.5, y);
+                    Vector b = new Vector(x + rez, y + rez * 0.5);
+                    Vector c = new Vector(x + rez * 0.5, y + rez);
+                    Vector d = new Vector(x, y + rez * 0.5);
+
+                    canvas.Children.Add(new Line()
+                    {
+                        X1 = a.X,
+                        Y1 = a.Y,
+                        X2 = b.X,
+                        Y2 = b.Y,
+                        Stroke = Brushes.White,
+                        StrokeThickness = 1,
+                    });
+                }
         }
     }
 }
