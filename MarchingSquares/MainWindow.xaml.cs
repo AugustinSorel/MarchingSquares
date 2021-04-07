@@ -86,8 +86,8 @@ namespace MarchingSquares
                         ellipses[i, j].Fill = Brushes.Black;
 
                     //ellipses[i, j].Opacity = field[i, j];
-                    Canvas.SetLeft(ellipses[i, j], i * rez + ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
-                    Canvas.SetTop(ellipses[i, j], j * rez + ellipses[i, j].ActualHeight / 2);
+                    Canvas.SetLeft(ellipses[i, j], i * rez); // add half of the ellipse;
+                    Canvas.SetTop(ellipses[i, j], j * rez );
                 }
 
             for (int i = 0; i < cols; i++)
@@ -100,10 +100,10 @@ namespace MarchingSquares
                     Vector c = new Vector(x + rez * 0.5, y + rez);
                     Vector d = new Vector(x, y + rez * 0.5);
 
-                    lines[i, j].X1 = a.X;
-                    lines[i, j].Y1 = a.Y;
-                    lines[i, j].X2 = b.X;
-                    lines[i, j].Y2 = b.Y;
+                    lines[i, j].X1 = a.X + ellipses[i, j].ActualWidth / 2;
+                    lines[i, j].Y1 = a.Y + ellipses[i, j].ActualHeight / 2;
+                    lines[i, j].X2 = b.X + ellipses[i, j].ActualWidth / 2;
+                    lines[i, j].Y2 = b.Y + ellipses[i, j].ActualHeight / 2;
 
                 }
         }
