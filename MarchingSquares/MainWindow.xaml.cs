@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,7 +19,8 @@ namespace MarchingSquares
         private int rez = 20;
         private int cols;
         private int rows;
-        private Line[,] lines;
+        //private Line[,] lines;
+        List<Line> lines;
 
         private DispatcherTimer dispatcherTimer;
 
@@ -49,7 +51,8 @@ namespace MarchingSquares
                     //field[i, j] = (float)random.NextDouble();            
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
-            lines = new Line[field.GetLength(0), field.GetLength(1)];
+            //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
+            lines = new List<Line>();
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
@@ -62,13 +65,14 @@ namespace MarchingSquares
                     };
                     canvas.Children.Add(ellipses[i, j]);
 
-                    lines[i, j] = new Line()
+                    Line line = new Line()
                     {
                         Stroke = Brushes.White,
                         StrokeThickness = 1,
                         Opacity = 1,
                     };
-                    canvas.Children.Add(lines[i, j]);
+                    lines.Add(line);
+                    canvas.Children.Add(line);
                 }
 
             dispatcherTimer = new DispatcherTimer();
@@ -159,10 +163,24 @@ namespace MarchingSquares
 
         private void DrawLine(Vector v1, Vector v2, int x, int y)
         {
-            lines[x, y].X1 = v1.X;
-            lines[x, y].Y1 = v1.Y;
-            lines[x, y].X2 = v2.X;
-            lines[x, y].Y2 = v2.Y;
+            Line line = new Line()
+            {
+                X1 = v1.X,
+                Y1 = v1.Y,
+                X2 = v2.X,
+                Y2 = v2.Y,
+                Stroke = Brushes.White,
+                StrokeThickness = 1,
+                Opacity = 1,
+            };
+            canvas.Children.Add(line);
+
+
+           //lines[y + (x * 26)].X1 = v1.X;
+           //lines[y + (x * 26)].Y1 = v1.Y;
+           //lines[y + (x * 26)].X2 = v2.X;
+           //lines[y + (x * 26)].Y2 = v2.Y;
+           //MessageBox.Show("");
         }
 
         private int GetState(int a, int b, int c, int d)
