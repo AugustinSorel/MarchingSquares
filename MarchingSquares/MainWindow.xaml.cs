@@ -100,18 +100,49 @@ namespace MarchingSquares
                     Vector c = new Vector(x + rez * 0.5, y + rez);
                     Vector d = new Vector(x, y + rez * 0.5);
 
-                    lines[i, j].X1 = a.X ;
-                    lines[i, j].Y1 = a.Y ;
-                    lines[i, j].X2 = b.X ;
-                    lines[i, j].Y2 = b.Y ;
+                    //lines[i, j].X1 = a.X ;
+                    //lines[i, j].Y1 = a.Y ;
+                    //lines[i, j].X2 = b.X ;
+                    //lines[i, j].Y2 = b.Y ;
 
                     int state = GetState(field[i, j], field[i + 1, j], field[i + 1, j + 1], field[i, j + 1]);
+
+                    switch (state)
+                    {
+                        case 1:
+                            DrawLine(c, d, i, j);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        case 8:
+                            break;
+                        case 9:
+                            break;
+                    }
                 }
+        }
+
+        private void DrawLine(Vector v1, Vector v2, int x, int y)
+        {
+            lines[x, y].X1 = v1.X;
+            lines[x, y].Y1 = v1.Y;
+            lines[x, y].X2 = v2.X;
+            lines[x, y].Y2 = v2.Y;
         }
 
         private int GetState(int a, int b, int c, int d)
         {
-            return a * 1 + b * 2 + c * 4 + d * 8;
+            return a * 8 + b * 4 + c * 2 + d * 1;
         }
     }
 }
