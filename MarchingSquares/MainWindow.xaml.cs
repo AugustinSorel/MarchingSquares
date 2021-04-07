@@ -81,6 +81,8 @@ namespace MarchingSquares
             dispatcherTimer.Start();
         }
 
+        private int index;
+
         private void HandleDraw(object sender, EventArgs e)
         {
             for (int i = 0; i < cols; i++)
@@ -94,6 +96,8 @@ namespace MarchingSquares
                     Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
                 }
 
+
+            index = 0;
             for (int i = 0; i < cols - 1; i++)
                 for (int j = 0; j < rows - 1; j++)
                 {
@@ -163,23 +167,23 @@ namespace MarchingSquares
 
         private void DrawLine(Vector v1, Vector v2, int x, int y)
         {
-            Line line = new Line()
-            {
-                X1 = v1.X,
-                Y1 = v1.Y,
-                X2 = v2.X,
-                Y2 = v2.Y,
-                Stroke = Brushes.White,
-                StrokeThickness = 1,
-                Opacity = 1,
-            };
-            canvas.Children.Add(line);
+            //Line line = new Line()
+            //{
+            //    X1 = v1.X,
+            //    Y1 = v1.Y,
+            //    X2 = v2.X,
+            //    Y2 = v2.Y,
+            //    Stroke = Brushes.White,
+            //    StrokeThickness = 1,
+            //    Opacity = 1,
+            //};
+            //canvas.Children.Add(line);
 
-
-           //lines[y + (x * 26)].X1 = v1.X;
-           //lines[y + (x * 26)].Y1 = v1.Y;
-           //lines[y + (x * 26)].X2 = v2.X;
-           //lines[y + (x * 26)].Y2 = v2.Y;
+            index++;
+           lines[index].X1 = v1.X;
+           lines[index].Y1 = v1.Y;
+           lines[index].X2 = v2.X;
+           lines[index].Y2 = v2.Y;
            //MessageBox.Show("");
         }
 
