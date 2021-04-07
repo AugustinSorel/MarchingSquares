@@ -105,7 +105,13 @@ namespace MarchingSquares
                     lines[i, j].X2 = b.X ;
                     lines[i, j].Y2 = b.Y ;
 
+                    int state = GetState(field[i, j], field[i + 1, j], field[i + 1, j + 1], field[i, j + 1]);
                 }
+        }
+
+        private int GetState(int a, int b, int c, int d)
+        {
+            return a * 1 + b * 2 + c * 4 + d * 8;
         }
     }
 }
