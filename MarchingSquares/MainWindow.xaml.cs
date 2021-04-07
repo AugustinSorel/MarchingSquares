@@ -18,6 +18,7 @@ namespace MarchingSquares
         private int rez = 20;
         private int cols;
         private int rows;
+        private Line[,] lines;
 
         private DispatcherTimer dispatcherTimer;
 
@@ -48,6 +49,7 @@ namespace MarchingSquares
                     //field[i, j] = (float)random.NextDouble();            
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
+            lines = new Line[field.GetLength(0), field.GetLength(1)];
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
@@ -59,6 +61,14 @@ namespace MarchingSquares
                         Opacity = 1,
                     };
                     canvas.Children.Add(ellipses[i, j]);
+
+                    lines[i, j] = new Line()
+                    {
+                        Stroke = Brushes.White,
+                        StrokeThickness = 1,
+                        Opacity = 1,
+                    };
+                    canvas.Children.Add(lines[i, j]);
                 }
 
             dispatcherTimer = new DispatcherTimer();
@@ -90,15 +100,11 @@ namespace MarchingSquares
                     Vector c = new Vector(x + rez * 0.5, y + rez);
                     Vector d = new Vector(x, y + rez * 0.5);
 
-                    canvas.Children.Add(new Line()
-                    {
-                        X1 = a.X,
-                        Y1 = a.Y,
-                        X2 = b.X,
-                        Y2 = b.Y,
-                        Stroke = Brushes.White,
-                        StrokeThickness = 1,
-                    });
+                    lines[i, j].X1 = a.X;
+                    lines[i, j].Y1 = a.Y;
+                    lines[i, j].X2 = b.X;
+                    lines[i, j].Y2 = b.Y;
+
                 }
         }
     }
