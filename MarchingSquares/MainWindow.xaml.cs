@@ -37,8 +37,8 @@ namespace MarchingSquares
 
         private void Window_ContentRendered(object sender, System.EventArgs e)
         {
-            cols = 1+(int)canvas.ActualWidth / rez;
-            rows = 1+(int)canvas.ActualHeight / rez;
+            cols = 1 + (int)canvas.ActualWidth / rez;
+            rows = 1 + (int)canvas.ActualHeight / rez;
             field = new int[cols, rows];
 
             Random random = new Random();
@@ -113,20 +113,45 @@ namespace MarchingSquares
                             DrawLine(c, d, i, j);
                             break;
                         case 2:
+                            DrawLine(b, c, i, j);
                             break;
                         case 3:
+                            DrawLine(b, d, i, j);
                             break;
                         case 4:
+                            DrawLine(a, b, i, j);
                             break;
                         case 5:
+                            DrawLine(a, d, i, j);
+                            DrawLine(b, c, i, j);
                             break;
                         case 6:
+                            DrawLine(a, c, i, j);
                             break;
                         case 7:
+                            DrawLine(a, d, i, j);
                             break;
                         case 8:
+                            DrawLine(a, d, i, j);
                             break;
                         case 9:
+                            DrawLine(a, c, i, j);
+                            break;
+                        case 10:
+                            DrawLine(a, b, i, j);
+                            DrawLine(c, d, i, j);
+                            break;
+                        case 11:
+                            DrawLine(a, b, i, j);
+                            break;
+                        case 12:
+                            DrawLine(b, d, i, j);
+                            break;
+                        case 13:
+                            DrawLine(b, c, i, j);
+                            break;
+                        case 14:
+                            DrawLine(c, d, i, j);
                             break;
                     }
                 }
