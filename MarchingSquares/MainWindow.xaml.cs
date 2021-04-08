@@ -14,12 +14,13 @@ namespace MarchingSquares
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int[,] field;
+        private float[,] field;
         private Ellipse[,] ellipses;
         private int rez = 20;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
+        private Random random;
         //private Line[,] lines;
         List<Line> lines;
 
@@ -42,14 +43,11 @@ namespace MarchingSquares
         {
             cols = 1 + (int)canvas.ActualWidth / rez;
             rows = 1 + (int)canvas.ActualHeight / rez;
-            field = new int[cols, rows];
+            field = new float[cols, rows];
             noise = new OpenSimplexNoise();
-            Random random = new Random();
+            random = new Random();
 
-            for (int i = 0; i < cols; i++)
-                for (int j = 0; j < rows; j++)
-                    field[i, j] = random.Next(0, 2);
-                    //field[i, j] = (float)random.NextDouble();            
+                       
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
             //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
@@ -84,6 +82,17 @@ namespace MarchingSquares
 
         private void HandleDraw(object sender, EventArgs e)
         {
+            float xOff = 0;
+            for (int i = 0; i < cols; i++)
+            {
+            float yOff = 0;
+                for (int j = 0; j < rows; j++)
+                {
+                    field[i, j] = (float)noise.Evaluate(xOff, yOff);
+                }
+            }
+            //field[i, j] = (float)random.NextDouble(); 
+
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
@@ -107,7 +116,7 @@ namespace MarchingSquares
                     Vector c = new Vector(x + rez * 0.5, y + rez);
                     Vector d = new Vector(x, y + rez * 0.5);
 
-                    int state = GetState(field[i, j], field[i + 1, j], field[i + 1, j + 1], field[i, j + 1]);
+                    int state = GetState(Math.Ceiling(field[i, j]), Math.Ceiling(field[i + 1, j]), Math.Ceiling(field[i + 1, j + 1]), Math.Ceiling(field[i, j + 1]));
 
                     switch (state)
                     {
@@ -168,9 +177,9 @@ namespace MarchingSquares
            lines[index].Y2 = v2.Y;
         }
 
-        private int GetState(int a, int b, int c, int d)
+        private int GetState(double a, double b, double c, double d)
         {
-            return a * 8 + b * 4 + c * 2 + d * 1;
+            return (int)(a * 8 + b * 4 + c * 2 + d * 1);
         }
     }
 }
