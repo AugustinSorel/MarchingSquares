@@ -23,6 +23,7 @@ namespace MarchingSquares
         private Random random;
         //private Line[,] lines;
         List<Line> lines;
+        private float increment = 0.1f;
 
         private DispatcherTimer dispatcherTimer;
 
@@ -59,7 +60,7 @@ namespace MarchingSquares
                     {
                         Height = rez * 0.4,
                         Width = rez * 0.4,
-                        Fill = Brushes.White,
+                        Fill = Brushes.Black,
                         Opacity = 1,
                     };
                     canvas.Children.Add(ellipses[i, j]);
@@ -85,10 +86,12 @@ namespace MarchingSquares
             float xOff = 0;
             for (int i = 0; i < cols; i++)
             {
-            float yOff = 0;
+                xOff += increment;
+                float yOff = 0;
                 for (int j = 0; j < rows; j++)
                 {
                     field[i, j] = (float)noise.Evaluate(xOff, yOff);
+                    yOff += increment;
                 }
             }
             //field[i, j] = (float)random.NextDouble(); 
@@ -96,10 +99,10 @@ namespace MarchingSquares
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
-                    if (field[i, j] == 0)
-                        ellipses[i, j].Fill = Brushes.Black;
+                    //if (field[i, j] == 0)
+                        //ellipses[i, j].Fill = Brushes.Black;
 
-                    //ellipses[i, j].Opacity = field[i, j];
+                    ellipses[i, j].Opacity = field[i, j];
                     Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
                     Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
                 }
