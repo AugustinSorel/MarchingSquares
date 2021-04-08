@@ -81,8 +81,6 @@ namespace MarchingSquares
             dispatcherTimer.Start();
         }
 
-        private int index;
-
         private void HandleDraw(object sender, EventArgs e)
         {
             for (int i = 0; i < cols; i++)
@@ -97,7 +95,7 @@ namespace MarchingSquares
                 }
 
 
-            index = 0;
+            int index = 0;
             for (int i = 0; i < cols - 1; i++)
                 for (int j = 0; j < rows - 1; j++)
                 {
@@ -118,54 +116,54 @@ namespace MarchingSquares
                     switch (state)
                     {
                         case 1:
-                            DrawLine(c, d, i, j);
+                            DrawLine(c, d, ref index);
                             break;
                         case 2:
-                            DrawLine(b, c, i, j);
+                            DrawLine(b, c, ref index);
                             break;
                         case 3:
-                            DrawLine(b, d, i, j);
+                            DrawLine(b, d, ref index);
                             break;
                         case 4:
-                            DrawLine(a, b, i, j);
+                            DrawLine(a, b, ref index);
                             break;
                         case 5:
-                            DrawLine(a, d, i, j);
-                            DrawLine(b, c, i, j);
+                            DrawLine(a, d, ref index);
+                            DrawLine(b, c, ref index);
                             break;
                         case 6:
-                            DrawLine(a, c, i, j);
+                            DrawLine(a, c, ref index);
                             break;
                         case 7:
-                            DrawLine(a, d, i, j);
+                            DrawLine(a, d, ref index);
                             break;
                         case 8:
-                            DrawLine(a, d, i, j);
+                            DrawLine(a, d, ref index);
                             break;
                         case 9:
-                            DrawLine(a, c, i, j);
+                            DrawLine(a, c, ref index);
                             break;
                         case 10:
-                            DrawLine(a, b, i, j);
-                            DrawLine(c, d, i, j);
+                            DrawLine(a, b, ref index);
+                            DrawLine(c, d, ref index);
                             break;
                         case 11:
-                            DrawLine(a, b, i, j);
+                            DrawLine(a, b, ref index);
                             break;
                         case 12:
-                            DrawLine(b, d, i, j);
+                            DrawLine(b, d, ref index);
                             break;
                         case 13:
-                            DrawLine(b, c, i, j);
+                            DrawLine(b, c, ref index);
                             break;
                         case 14:
-                            DrawLine(c, d, i, j);
+                            DrawLine(c, d, ref index);
                             break;
                     }
                 }
         }
 
-        private void DrawLine(Vector v1, Vector v2, int x, int y)
+        private void DrawLine(Vector v1, Vector v2, ref int index)
         {
             //Line line = new Line()
             //{
