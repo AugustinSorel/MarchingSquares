@@ -99,18 +99,10 @@ namespace MarchingSquares
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
-                    float temp = 0;
                     if (field[i, j] < 0)
-                    {
-                        ellipses[i, j].Fill = Brushes.White;
-                        temp = Math.Abs(field[i, j]);
-                        ellipses[i, j].Opacity = temp;
+                      ellipses[i, j].Fill = Brushes.White;
 
-                    }
-                    else
-                        ellipses[i, j].Opacity = field[i, j];
-
-
+                    ellipses[i, j].Opacity = Math.Abs(field[i, j]);
                     Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
                     Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
                 }
