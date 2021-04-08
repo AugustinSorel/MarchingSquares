@@ -177,7 +177,9 @@ namespace MarchingSquares
             //};
             //canvas.Children.Add(line);
 
-            index++;
+           index++;
+
+
            lines[index].X1 = v1.X;
            lines[index].Y1 = v1.Y;
            lines[index].X2 = v2.X;
