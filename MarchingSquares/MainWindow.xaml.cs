@@ -19,6 +19,7 @@ namespace MarchingSquares
         private int rez = 20;
         private int cols;
         private int rows;
+        private OpenSimplexNoise noise;
         //private Line[,] lines;
         List<Line> lines;
 
@@ -42,7 +43,7 @@ namespace MarchingSquares
             cols = 1 + (int)canvas.ActualWidth / rez;
             rows = 1 + (int)canvas.ActualHeight / rez;
             field = new int[cols, rows];
-
+            noise = new OpenSimplexNoise();
             Random random = new Random();
 
             for (int i = 0; i < cols; i++)
@@ -106,11 +107,6 @@ namespace MarchingSquares
                     Vector c = new Vector(x + rez * 0.5, y + rez);
                     Vector d = new Vector(x, y + rez * 0.5);
 
-                    //lines[i, j].X1 = a.X ;
-                    //lines[i, j].Y1 = a.Y ;
-                    //lines[i, j].X2 = b.X ;
-                    //lines[i, j].Y2 = b.Y ;
-
                     int state = GetState(field[i, j], field[i + 1, j], field[i + 1, j + 1], field[i, j + 1]);
 
                     switch (state)
@@ -165,26 +161,11 @@ namespace MarchingSquares
 
         private void DrawLine(Vector v1, Vector v2, ref int index)
         {
-            //Line line = new Line()
-            //{
-            //    X1 = v1.X,
-            //    Y1 = v1.Y,
-            //    X2 = v2.X,
-            //    Y2 = v2.Y,
-            //    Stroke = Brushes.White,
-            //    StrokeThickness = 1,
-            //    Opacity = 1,
-            //};
-            //canvas.Children.Add(line);
-
            index++;
-
-
            lines[index].X1 = v1.X;
            lines[index].Y1 = v1.Y;
            lines[index].X2 = v2.X;
            lines[index].Y2 = v2.Y;
-           //MessageBox.Show("");
         }
 
         private int GetState(int a, int b, int c, int d)
