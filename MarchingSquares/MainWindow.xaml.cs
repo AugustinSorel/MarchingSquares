@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,16 +18,15 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private int rez = 15;
+        private readonly int rez = 15;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
-        private Random random;
         //private Line[,] lines;
-        private float increment = 0.1f;
+        private readonly float increment = 0.1f;
         private float zOff = 0;
 
-        private DispatcherTimer dispatcherTimer;
+        private Timer aTimer;
         private readonly BackgroundWorker worker = new BackgroundWorker();
 
         public MainWindow()
@@ -55,12 +55,14 @@ namespace MarchingSquares
             rows = 1 + (int)canvas.ActualHeight / rez;
             field = new float[cols, rows];
             noise = new OpenSimplexNoise();
-            random = new Random();
-
 
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
             //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
+
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+
 
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
@@ -75,10 +77,14 @@ namespace MarchingSquares
                     canvas.Children.Add(ellipses[i, j]);
                 }
 
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(HandleDraw);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            //dispatcherTimer.Start();
+
+            }));
+
+            aTimer = new Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(HandleDraw);
+            aTimer.Interval = 5;
+            aTimer.Enabled = true;
+            aTimer.Start();
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
