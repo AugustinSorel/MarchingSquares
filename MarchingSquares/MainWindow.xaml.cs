@@ -22,7 +22,6 @@ namespace MarchingSquares
         private OpenSimplexNoise noise;
         private Random random;
         //private Line[,] lines;
-        List<Line> lines;
         private float increment = 0.1f;
         private float zOff = 0;
 
@@ -53,7 +52,7 @@ namespace MarchingSquares
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
             //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
-            lines = new List<Line>();
+
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
@@ -65,15 +64,6 @@ namespace MarchingSquares
                         Opacity = 1,
                     };
                     canvas.Children.Add(ellipses[i, j]);
-
-                    Line line = new Line()
-                    {
-                        Stroke = Brushes.White,
-                        StrokeThickness = 1,
-                        Opacity = 1,
-                    };
-                    lines.Add(line);
-                    canvas.Children.Add(line);
                 }
 
             dispatcherTimer = new DispatcherTimer();
@@ -112,8 +102,6 @@ namespace MarchingSquares
                     Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
                 }
 
-
-            int index = 0;
             List<Line> listOfLinesToRemove = new List<Line>();
             foreach (var item in canvas.Children)
                 if (item.GetType() == typeof(Line))
@@ -137,54 +125,54 @@ namespace MarchingSquares
                     switch (state)
                     {
                         case 1:
-                            DrawLine(c, d, ref index);
+                            DrawLine(c, d);
                             break;
                         case 2:
-                            DrawLine(b, c, ref index);
+                            DrawLine(b, c);
                             break;
                         case 3:
-                            DrawLine(b, d, ref index);
+                            DrawLine(b, d);
                             break;
                         case 4:
-                            DrawLine(a, b, ref index);
+                            DrawLine(a, b);
                             break;
                         case 5:
-                            DrawLine(a, d, ref index);
-                            DrawLine(b, c, ref index);
+                            DrawLine(a, d);
+                            DrawLine(b, c);
                             break;
                         case 6:
-                            DrawLine(a, c, ref index);
+                            DrawLine(a, c);
                             break;
                         case 7:
-                            DrawLine(a, d, ref index);
+                            DrawLine(a, d);
                             break;
                         case 8:
-                            DrawLine(a, d, ref index);
+                            DrawLine(a, d);
                             break;
                         case 9:
-                            DrawLine(a, c, ref index);
+                            DrawLine(a, c);
                             break;
                         case 10:
-                            DrawLine(a, b, ref index);
-                            DrawLine(c, d, ref index);
+                            DrawLine(a, b);
+                            DrawLine(c, d);
                             break;
                         case 11:
-                            DrawLine(a, b, ref index);
+                            DrawLine(a, b);
                             break;
                         case 12:
-                            DrawLine(b, d, ref index);
+                            DrawLine(b, d);
                             break;
                         case 13:
-                            DrawLine(b, c, ref index);
+                            DrawLine(b, c);
                             break;
                         case 14:
-                            DrawLine(c, d, ref index);
+                            DrawLine(c, d);
                             break;
                     }
                 }
         }
 
-        private void DrawLine(Vector v1, Vector v2, ref int index)
+        private void DrawLine(Vector v1, Vector v2)
         {
             Line line = new Line()
             {
@@ -199,13 +187,6 @@ namespace MarchingSquares
                 Opacity = 1,
             };
             canvas.Children.Add(line);
-
-            return;
-           index++;
-           lines[index].X1 = v1.X;
-           lines[index].Y1 = v1.Y;
-           lines[index].X2 = v2.X;
-           lines[index].Y2 = v2.Y;
         }
 
         private int GetState(double a, double b, double c, double d)
