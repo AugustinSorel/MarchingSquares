@@ -64,25 +64,25 @@ namespace MarchingSquares
             {
 
 
-            for (int i = 0; i < cols; i++)
-                for (int j = 0; j < rows; j++)
-                {
-                    ellipses[i, j] = new Ellipse()
+                for (int i = 0; i < cols; i++)
+                    for (int j = 0; j < rows; j++)
                     {
-                        Height = rez * 0.4,
-                        Width = rez * 0.4,
-                        Fill = Brushes.Black,
-                        Opacity = 1,
-                    };
-                    canvas.Children.Add(ellipses[i, j]);
-                }
+                        ellipses[i, j] = new Ellipse()
+                        {
+                            Height = rez * 0.4,
+                            Width = rez * 0.4,
+                            Fill = Brushes.Black,
+                            Opacity = 1,
+                        };
+                        canvas.Children.Add(ellipses[i, j]);
+                    }
 
 
             }));
 
             aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(HandleDraw);
-            aTimer.Interval = 5;
+            aTimer.Interval = 100;
             aTimer.Enabled = true;
             aTimer.Start();
         }
@@ -123,12 +123,16 @@ namespace MarchingSquares
             //    }
 
             List<Line> listOfLinesToRemove = new List<Line>();
-            foreach (var item in canvas.Children)
-                if (item.GetType() == typeof(Line))
-                    listOfLinesToRemove.Add(item as Line);
+            
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                foreach (var item in canvas.Children)
+                    if (item.GetType() == typeof(Line))
+                        listOfLinesToRemove.Add(item as Line);
 
-            foreach (Line item in listOfLinesToRemove)
-                canvas.Children.Remove(item);
+                foreach (Line item in listOfLinesToRemove)
+                    canvas.Children.Remove(item);
+            
 
             for (int i = 0; i < cols - 1; i++)
                 for (int j = 0; j < rows - 1; j++)
@@ -190,23 +194,25 @@ namespace MarchingSquares
                             break;
                     }
                 }
+
+            }));
         }
 
         private void DrawLine(Vector v1, Vector v2)
         {
-            Line line = new Line()
-            {
+                Line line = new Line()
+                {
 
-                X1 = v1.X,
-                Y1 = v1.Y,
-                X2 = v2.X,
-                Y2 = v2.Y,
+                    X1 = v1.X,
+                    Y1 = v1.Y,
+                    X2 = v2.X,
+                    Y2 = v2.Y,
 
-                Stroke = Brushes.White,
-                StrokeThickness = 1,
-                Opacity = 1,
-            };
-            canvas.Children.Add(line);
+                    Stroke = Brushes.White,
+                    StrokeThickness = 1,
+                    Opacity = 1,
+                };
+                canvas.Children.Add(line);
         }
 
         private int GetState(double a, double b, double c, double d)
