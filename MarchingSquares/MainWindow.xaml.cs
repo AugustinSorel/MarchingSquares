@@ -16,7 +16,7 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private int rez = 20;
+        private int rez = 50;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
