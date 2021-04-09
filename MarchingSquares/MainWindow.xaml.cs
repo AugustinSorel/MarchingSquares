@@ -24,6 +24,7 @@ namespace MarchingSquares
         //private Line[,] lines;
         List<Line> lines;
         private float increment = 0.1f;
+        private float zOff = 0;
 
         private DispatcherTimer dispatcherTimer;
 
@@ -90,10 +91,11 @@ namespace MarchingSquares
                 float yOff = 0;
                 for (int j = 0; j < rows; j++)
                 {
-                    field[i, j] = (float)noise.Evaluate(xOff, yOff);
+                    field[i, j] = (float)noise.Evaluate(xOff, yOff, zOff);
                     yOff += increment;
                 }
             }
+            zOff += 0.03f;
             //field[i, j] = (float)random.NextDouble(); 
 
             for (int i = 0; i < cols; i++)
@@ -101,6 +103,9 @@ namespace MarchingSquares
                 {
                     if (field[i, j] < 0)
                       ellipses[i, j].Fill = Brushes.White;
+                    else 
+                        ellipses[i, j].Fill = Brushes.Black;
+
 
                     ellipses[i, j].Opacity = Math.Abs(field[i, j]);
                     Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
@@ -109,6 +114,14 @@ namespace MarchingSquares
 
 
             int index = 0;
+            List<Line> listOfLinesToRemove = new List<Line>();
+            foreach (var item in canvas.Children)
+                if (item.GetType() == typeof(Line))
+                    listOfLinesToRemove.Add(item as Line);
+
+            foreach (Line item in listOfLinesToRemove)
+                canvas.Children.Remove(item);
+
             for (int i = 0; i < cols - 1; i++)
                 for (int j = 0; j < rows - 1; j++)
                 {
@@ -173,6 +186,21 @@ namespace MarchingSquares
 
         private void DrawLine(Vector v1, Vector v2, ref int index)
         {
+            Line line = new Line()
+            {
+
+                X1 = v1.X,
+                Y1 = v1.Y,
+                X2 = v2.X,
+                Y2 = v2.Y,
+
+                Stroke = Brushes.White,
+                StrokeThickness = 1,
+                Opacity = 1,
+            };
+            canvas.Children.Add(line);
+
+            return;
            index++;
            lines[index].X1 = v1.X;
            lines[index].Y1 = v1.Y;
