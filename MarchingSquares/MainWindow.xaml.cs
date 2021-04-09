@@ -15,7 +15,8 @@ namespace MarchingSquares
     public partial class MainWindow : Window
     {
         private float[,] field;
-        private Ellipse[,] ellipses;
+        //private Ellipse[,] ellipses;
+        private Rectangle[,] ellipses;
         private int rez = 50;
         private int cols;
         private int rows;
@@ -50,16 +51,16 @@ namespace MarchingSquares
 
                        
 
-            ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
+            ellipses = new Rectangle[field.GetLength(0), field.GetLength(1)];
             //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
 
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                 {
-                    ellipses[i, j] = new Ellipse()
+                    ellipses[i, j] = new Rectangle()
                     {
-                        Height = rez * 0.4,
-                        Width = rez * 0.4,
+                        Height = rez,
+                        Width = rez,
                         Fill = Brushes.Black,
                         Opacity = 1,
                     };
@@ -98,8 +99,8 @@ namespace MarchingSquares
 
 
                     ellipses[i, j].Opacity = Math.Abs(field[i, j]);
-                    Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
-                    Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
+                    Canvas.SetLeft(ellipses[i, j], i * rez); // add half of the ellipse;
+                    Canvas.SetTop(ellipses[i, j], j * rez);
                 }
 
             List<Line> listOfLinesToRemove = new List<Line>();
