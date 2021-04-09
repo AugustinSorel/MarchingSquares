@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,7 +17,7 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private int rez = 50;
+        private int rez = 15;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
@@ -26,6 +27,7 @@ namespace MarchingSquares
         private float zOff = 0;
 
         private DispatcherTimer dispatcherTimer;
+        private readonly BackgroundWorker worker = new BackgroundWorker();
 
         public MainWindow()
         {
@@ -42,13 +44,20 @@ namespace MarchingSquares
 
         private void Window_ContentRendered(object sender, System.EventArgs e)
         {
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
             cols = 1 + (int)canvas.ActualWidth / rez;
             rows = 1 + (int)canvas.ActualHeight / rez;
             field = new float[cols, rows];
             noise = new OpenSimplexNoise();
             random = new Random();
 
-                       
+
 
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
             //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
@@ -68,8 +77,13 @@ namespace MarchingSquares
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(HandleDraw);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            dispatcherTimer.Start();
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            //dispatcherTimer.Start();
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("End");
         }
 
         private void HandleDraw(object sender, EventArgs e)
@@ -88,19 +102,19 @@ namespace MarchingSquares
             zOff += 0.03f;
             //field[i, j] = (float)random.NextDouble(); 
 
-            for (int i = 0; i < cols; i++)
-                for (int j = 0; j < rows; j++)
-                {
-                    if (field[i, j] < 0)
-                      ellipses[i, j].Fill = Brushes.White;
-                    else 
-                        ellipses[i, j].Fill = Brushes.Black;
+            //for (int i = 0; i < cols; i++)
+            //    for (int j = 0; j < rows; j++)
+            //    {
+            //        if (field[i, j] < 0)
+            //          ellipses[i, j].Fill = Brushes.White;
+            //        else 
+            //            ellipses[i, j].Fill = Brushes.Black;
 
 
-                    ellipses[i, j].Opacity = Math.Abs(field[i, j]);
-                    Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
-                    Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
-                }
+            //        ellipses[i, j].Opacity = Math.Abs(field[i, j]);
+            //        Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
+            //        Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
+            //    }
 
             List<Line> listOfLinesToRemove = new List<Line>();
             foreach (var item in canvas.Children)

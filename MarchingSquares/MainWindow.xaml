@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Background="Gray"
+        Background="Black"
         KeyDown="Window_KeyDown"
-        WindowState="Maximized"
+        WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="500" Width="500">
