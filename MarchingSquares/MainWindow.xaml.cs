@@ -27,8 +27,6 @@ namespace MarchingSquares
         private readonly float increment = 0.1f;
         private float zOff = 0;
         
-        private readonly BackgroundWorker worker = new BackgroundWorker();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +42,7 @@ namespace MarchingSquares
 
         private void Window_ContentRendered(object sender, System.EventArgs e)
         {
+            BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
         }
@@ -55,9 +54,7 @@ namespace MarchingSquares
             field = new float[cols, rows];
             noise = new OpenSimplexNoise();
 
-
             ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
-            //lines = new Line[field.GetLength(0) + 30, field.GetLength(1) + 30];
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -73,12 +70,10 @@ namespace MarchingSquares
                             Fill = Brushes.White,
                             Opacity = 0,
                         };
-                        Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2); // add half of the ellipse;
+                        Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2);
                         Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
                         canvas.Children.Add(ellipses[i, j]);
                     }
-
-
             }));
             HandleDraw();
         }
@@ -102,7 +97,7 @@ namespace MarchingSquares
                 //field[i, j] = (float)random.NextDouble(); 
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
-                    if (true)
+                    if (false)
                     {
                         for (int i = 0; i < cols; i++)
                             for (int j = 0; j < rows; j++)
@@ -111,7 +106,6 @@ namespace MarchingSquares
 
                     List<Line> listOfLinesToRemove = new List<Line>();
 
-                
                     foreach (var item in canvas.Children)
                         if (item.GetType() == typeof(Line))
                             listOfLinesToRemove.Add(item as Line);
