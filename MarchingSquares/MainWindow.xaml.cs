@@ -19,11 +19,10 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private readonly int rez = 30;
+        private readonly int rez = 20;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
-        //private Line[,] lines;
         private readonly float increment = 0.1f;
         private float zOff = 0;
         
@@ -92,7 +91,7 @@ namespace MarchingSquares
                     }
                 }
                 zOff += 0.03f;
-                //field[i, j] = (float)random.NextDouble(); 
+
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     if (false)
