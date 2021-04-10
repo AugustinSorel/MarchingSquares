@@ -19,7 +19,7 @@ namespace MarchingSquares
     {
         private float[,] field;
         private Ellipse[,] ellipses;
-        private readonly int rez = 15;
+        private readonly int rez = 30;
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
@@ -58,8 +58,6 @@ namespace MarchingSquares
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-
-
                 for (int i = 0; i < cols; i++)
                     for (int j = 0; j < rows; j++)
                     {

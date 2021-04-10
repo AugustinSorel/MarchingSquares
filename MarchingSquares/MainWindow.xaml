@@ -9,7 +9,7 @@
         WindowStyle="None"
         Background="Black"
         KeyDown="Window_KeyDown"
-        WindowState="Normal"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="500" Width="500">
