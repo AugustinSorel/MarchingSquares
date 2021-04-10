@@ -45,7 +45,6 @@ namespace MarchingSquares
         private void Window_ContentRendered(object sender, System.EventArgs e)
         {
             worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             worker.RunWorkerAsync();
         }
 
@@ -85,11 +84,6 @@ namespace MarchingSquares
             aTimer.Interval = 100;
             aTimer.Enabled = true;
             aTimer.Start();
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("End");
         }
 
         private void HandleDraw(object sender, EventArgs e)
