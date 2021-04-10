@@ -32,8 +32,8 @@ namespace MarchingSquares
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                for (int i = 0; i < ellipses.GetLength(0); i++)
-                    for (int j = 0; j < ellipses.GetLength(1); j++)
+                for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
+                    for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
                     {
                         ellipses[i, j] = new Ellipse()
                         {
@@ -78,58 +78,53 @@ namespace MarchingSquares
                     for (int i = 0; i < mainWindowModel.Field.GetLength(0) - 1; i++)
                         for (int j = 0; j < mainWindowModel.Field.GetLength(1) - 1; j++)
                         {
-                            float x = i * mainWindowModel.Rez;
-                            float y = j * mainWindowModel.Rez;
-                            Vector a = new Vector(x + mainWindowModel.Rez * 0.5, y);
-                            Vector b = new Vector(x + mainWindowModel.Rez, y + mainWindowModel.Rez * 0.5);
-                            Vector c = new Vector(x + mainWindowModel.Rez * 0.5, y + mainWindowModel.Rez);
-                            Vector d = new Vector(x, y + mainWindowModel.Rez * 0.5);
+                            Vector[] vectors = mainWindowModel.GetVectors(i, j);
 
                             switch (mainWindowModel.GetState(i, j))
                             {
                                 case 1:
-                                    DrawLine(c, d);
+                                    DrawLine(vectors[2], vectors[3]);
                                     break;
                                 case 2:
-                                    DrawLine(b, c);
+                                    DrawLine(vectors[1], vectors[2]);
                                     break;
                                 case 3:
-                                    DrawLine(b, d);
+                                    DrawLine(vectors[1], vectors[3]);
                                     break;
                                 case 4:
-                                    DrawLine(a, b);
+                                    DrawLine(vectors[0], vectors[1]);
                                     break;
                                 case 5:
-                                    DrawLine(a, d);
-                                    DrawLine(b, c);
+                                    DrawLine(vectors[0], vectors[3]);
+                                    DrawLine(vectors[1], vectors[2]);
                                     break;
                                 case 6:
-                                    DrawLine(a, c);
+                                    DrawLine(vectors[0], vectors[2]);
                                     break;
                                 case 7:
-                                    DrawLine(a, d);
+                                    DrawLine(vectors[0], vectors[3]);
                                     break;
                                 case 8:
-                                    DrawLine(a, d);
+                                    DrawLine(vectors[0], vectors[3]);
                                     break;
                                 case 9:
-                                    DrawLine(a, c);
+                                    DrawLine(vectors[0], vectors[2]);
                                     break;
                                 case 10:
-                                    DrawLine(a, b);
-                                    DrawLine(c, d);
+                                    DrawLine(vectors[0], vectors[1]);
+                                    DrawLine(vectors[2], vectors[3]);
                                     break;
                                 case 11:
-                                    DrawLine(a, b);
+                                    DrawLine(vectors[0], vectors[1]);
                                     break;
                                 case 12:
-                                    DrawLine(b, d);
+                                    DrawLine(vectors[1], vectors[3]);
                                     break;
                                 case 13:
-                                    DrawLine(b, c);
+                                    DrawLine(vectors[1], vectors[2]);
                                     break;
                                 case 14:
-                                    DrawLine(c, d);
+                                    DrawLine(vectors[2], vectors[3]);
                                     break;
                             }
                         }

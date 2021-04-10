@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MarchingSquares
 {
@@ -60,6 +61,14 @@ namespace MarchingSquares
         private int GetState(double a, double b, double c, double d)
         {
             return (int)(a * 8 + b * 4 + c * 2 + d * 1);
+        }
+
+        internal Vector[] GetVectors(int i, int j)
+        {
+            float x = i * rez;
+            float y = j * rez;
+
+            return new[] { new Vector(x + rez * 0.5, y), new Vector(x + rez, y + rez * 0.5), new Vector(x + rez * 0.5, y + rez), new Vector(x, y + rez * 0.5)};
         }
     }
 }
