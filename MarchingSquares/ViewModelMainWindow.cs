@@ -11,16 +11,10 @@ namespace MarchingSquares
 {
     class ViewModelMainWindow
     {
-        private float[,] field;
         private Ellipse[,] ellipses;
-        private readonly int rez = 20;
-        private int cols;
-        private int rows;
-        private OpenSimplexNoise noise;
-        private readonly float increment = 0.1f;
+        List<Line> listOfLinesToRemove;
         private readonly Canvas canvas;
-        private float zOff = 0;
-
+        private MainWindowModel mainWindowModel;
         public ViewModelMainWindow(Canvas canvas)
         {
             this.canvas = canvas;
@@ -31,27 +25,25 @@ namespace MarchingSquares
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            cols = 1 + (int)canvas.ActualWidth / rez;
-            rows = 1 + (int)canvas.ActualHeight / rez;
-            field = new float[cols, rows];
-            noise = new OpenSimplexNoise();
+            mainWindowModel = new MainWindowModel(canvas.ActualWidth, canvas.ActualHeight);
 
-            ellipses = new Ellipse[field.GetLength(0), field.GetLength(1)];
+            listOfLinesToRemove = new List<Line>();
+            ellipses = new Ellipse[mainWindowModel.Field.GetLength(0), mainWindowModel.Field.GetLength(1)];
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                for (int i = 0; i < cols; i++)
-                    for (int j = 0; j < rows; j++)
+                for (int i = 0; i < ellipses.GetLength(0); i++)
+                    for (int j = 0; j < ellipses.GetLength(1); j++)
                     {
                         ellipses[i, j] = new Ellipse()
                         {
-                            Height = rez * 0.4,
-                            Width = rez * 0.4,
+                            Height = mainWindowModel.Rez * 0.4,
+                            Width = mainWindowModel.Rez * 0.4,
                             Fill = Brushes.White,
                             Opacity = 0,
                         };
-                        Canvas.SetLeft(ellipses[i, j], i * rez - ellipses[i, j].ActualWidth / 2);
-                        Canvas.SetTop(ellipses[i, j], j * rez - ellipses[i, j].ActualHeight / 2);
+                        Canvas.SetLeft(ellipses[i, j], i * mainWindowModel.Rez - ellipses[i, j].ActualWidth / 2);
+                        Canvas.SetTop(ellipses[i, j], j * mainWindowModel.Rez - ellipses[i, j].ActualHeight / 2);
                         canvas.Children.Add(ellipses[i, j]);
                     }
             }));
@@ -62,30 +54,19 @@ namespace MarchingSquares
         {
             while (true)
             {
-                float xOff = 0;
-                for (int i = 0; i < cols; i++)
-                {
-                    xOff += increment;
-                    float yOff = 0;
-                    for (int j = 0; j < rows; j++)
-                    {
-                        field[i, j] = (float)noise.Evaluate(xOff, yOff, zOff);
-                        yOff += increment;
-                    }
-                }
-                zOff += 0.03f;
+                mainWindowModel.SetFields();
 
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
-                    if (false)
+                    if (true)
                     {
-                        for (int i = 0; i < cols; i++)
-                            for (int j = 0; j < rows; j++)
-                                ellipses[i, j].Opacity = (field[i, j]);
+                        for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
+                            for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
+                                ellipses[i, j].Opacity = (mainWindowModel.Field[i, j]);
                     }
 
-                    List<Line> listOfLinesToRemove = new List<Line>();
 
+                    listOfLinesToRemove.Clear();
                     foreach (var item in canvas.Children)
                         if (item.GetType() == typeof(Line))
                             listOfLinesToRemove.Add(item as Line);
@@ -94,19 +75,17 @@ namespace MarchingSquares
                         canvas.Children.Remove(item);
 
 
-                    for (int i = 0; i < cols - 1; i++)
-                        for (int j = 0; j < rows - 1; j++)
+                    for (int i = 0; i < mainWindowModel.Field.GetLength(0) - 1; i++)
+                        for (int j = 0; j < mainWindowModel.Field.GetLength(1) - 1; j++)
                         {
-                            float x = i * rez;
-                            float y = j * rez;
-                            Vector a = new Vector(x + rez * 0.5, y);
-                            Vector b = new Vector(x + rez, y + rez * 0.5);
-                            Vector c = new Vector(x + rez * 0.5, y + rez);
-                            Vector d = new Vector(x, y + rez * 0.5);
+                            float x = i * mainWindowModel.Rez;
+                            float y = j * mainWindowModel.Rez;
+                            Vector a = new Vector(x + mainWindowModel.Rez * 0.5, y);
+                            Vector b = new Vector(x + mainWindowModel.Rez, y + mainWindowModel.Rez * 0.5);
+                            Vector c = new Vector(x + mainWindowModel.Rez * 0.5, y + mainWindowModel.Rez);
+                            Vector d = new Vector(x, y + mainWindowModel.Rez * 0.5);
 
-                            int state = GetState(Math.Ceiling(field[i, j]), Math.Ceiling(field[i + 1, j]), Math.Ceiling(field[i + 1, j + 1]), Math.Ceiling(field[i, j + 1]));
-
-                            switch (state)
+                            switch (mainWindowModel.GetState(i, j))
                             {
                                 case 1:
                                     DrawLine(c, d);
@@ -176,11 +155,6 @@ namespace MarchingSquares
                 Opacity = 1,
             };
             canvas.Children.Add(line);
-        }
-
-        private int GetState(double a, double b, double c, double d)
-        {
-            return (int)(a * 8 + b * 4 + c * 2 + d * 1);
         }
     }
 }
