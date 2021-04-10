@@ -15,6 +15,7 @@ namespace MarchingSquares
         List<Line> listOfLinesToRemove;
         private readonly Canvas canvas;
         private MainWindowModel mainWindowModel;
+
         public ViewModelMainWindow(Canvas canvas)
         {
             this.canvas = canvas;
