@@ -31,14 +31,18 @@
         <Canvas x:Name="canvas"/>
 
         <DockPanel Grid.Row="1" LastChildFill="False" HorizontalAlignment="Center">
-            <StackPanel Margin="10">
-                <TextBlock Text="Resolution"/>
-                <Slider x:Name="name" Value="20" Style="{StaticResource CustomSlider}"/>
-            </StackPanel>
-            <StackPanel Margin="10">
-                <TextBlock Text="Hello World"/>
-                <Slider x:Name="name2" Value="20" Style="{StaticResource CustomSlider}"/>
-            </StackPanel>
+
+            <TextBlock>
+                <Run Text="Resolution: "/>
+                <Run Text=""/>
+            </TextBlock>
+            <Slider Style="{StaticResource CustomSlider}"/>
+
+            <TextBlock Text="Increment"/>
+            <Slider Style="{StaticResource CustomSlider}"/>
+
+            <TextBlock Text="Speed"/>
+            <Slider Style="{StaticResource CustomSlider}"/>
         </DockPanel>
     </Grid>
 </Window>
