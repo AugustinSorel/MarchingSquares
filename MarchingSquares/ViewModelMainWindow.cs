@@ -15,10 +15,12 @@ namespace MarchingSquares
         List<Line> listOfLinesToRemove;
         private readonly Canvas canvas;
         private MainWindowModel mainWindowModel;
+        private bool ShowCircle;
 
         public ViewModelMainWindow(Canvas canvas)
         {
             this.canvas = canvas;
+            ShowCircle = false;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
@@ -31,24 +33,33 @@ namespace MarchingSquares
             listOfLinesToRemove = new List<Line>();
             ellipses = new Ellipse[mainWindowModel.Field.GetLength(0), mainWindowModel.Field.GetLength(1)];
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
-                    for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
-                    {
-                        ellipses[i, j] = new Ellipse()
-                        {
-                            Height = mainWindowModel.Rez * 0.4,
-                            Width = mainWindowModel.Rez * 0.4,
-                            Fill = Brushes.White,
-                            Opacity = 0,
-                        };
-                        Canvas.SetLeft(ellipses[i, j], i * mainWindowModel.Rez - ellipses[i, j].ActualWidth / 2);
-                        Canvas.SetTop(ellipses[i, j], j * mainWindowModel.Rez - ellipses[i, j].ActualHeight / 2);
-                        canvas.Children.Add(ellipses[i, j]);
-                    }
-            }));
+            CreateCircle2DArray();
+
             HandleDraw();
+        }
+
+        private void CreateCircle2DArray()
+        {
+            if (ShowCircle)
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
+                        for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
+                        {
+                            ellipses[i, j] = new Ellipse()
+                            {
+                                Height = mainWindowModel.Rez * 0.4,
+                                Width = mainWindowModel.Rez * 0.4,
+                                Fill = Brushes.White,
+                                Opacity = 0,
+                            };
+                            Canvas.SetLeft(ellipses[i, j], i * mainWindowModel.Rez - ellipses[i, j].ActualWidth / 2);
+                            Canvas.SetTop(ellipses[i, j], j * mainWindowModel.Rez - ellipses[i, j].ActualHeight / 2);
+                            canvas.Children.Add(ellipses[i, j]);
+                        }
+                }));
+            }
         }
 
         private void HandleDraw()
@@ -147,7 +158,7 @@ namespace MarchingSquares
 
         private void DrawCircles()
         {
-            if (false)
+            if (ShowCircle)
             {
                 for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
                     for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)

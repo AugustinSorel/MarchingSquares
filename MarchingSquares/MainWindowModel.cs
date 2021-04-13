@@ -8,7 +8,7 @@ namespace MarchingSquares
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
-        private int rez = 20;
+        private int rez = 15;
         private float[,] field;
         private readonly float increment = 0.1f;
         private float zOff = 0;
