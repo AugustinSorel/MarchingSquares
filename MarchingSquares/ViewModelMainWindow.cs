@@ -56,83 +56,102 @@ namespace MarchingSquares
             while (true)
             {
                 mainWindowModel.SetFields();
+                DrawToTheCanvas();
+                GetSleep();
+            }
+        }
 
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+        private void DrawToTheCanvas()
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                DrawCircles();
+                RemoveOldLines();
+                AddNewLines();
+
+            }));
+        }
+
+        private static void GetSleep()
+        {
+            Thread.Sleep(100);
+        }
+
+        private void AddNewLines()
+        {
+            for (int i = 0; i < mainWindowModel.Field.GetLength(0) - 1; i++)
+                for (int j = 0; j < mainWindowModel.Field.GetLength(1) - 1; j++)
                 {
-                    if (true)
+                    Vector[] vectors = mainWindowModel.GetVectors(i, j);
+
+                    switch (mainWindowModel.GetState(i, j))
                     {
-                        for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
-                            for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
-                                ellipses[i, j].Opacity = (mainWindowModel.Field[i, j]);
+                        case 1:
+                            DrawLine(vectors[2], vectors[3]);
+                            break;
+                        case 2:
+                            DrawLine(vectors[1], vectors[2]);
+                            break;
+                        case 3:
+                            DrawLine(vectors[1], vectors[3]);
+                            break;
+                        case 4:
+                            DrawLine(vectors[0], vectors[1]);
+                            break;
+                        case 5:
+                            DrawLine(vectors[0], vectors[3]);
+                            DrawLine(vectors[1], vectors[2]);
+                            break;
+                        case 6:
+                            DrawLine(vectors[0], vectors[2]);
+                            break;
+                        case 7:
+                            DrawLine(vectors[0], vectors[3]);
+                            break;
+                        case 8:
+                            DrawLine(vectors[0], vectors[3]);
+                            break;
+                        case 9:
+                            DrawLine(vectors[0], vectors[2]);
+                            break;
+                        case 10:
+                            DrawLine(vectors[0], vectors[1]);
+                            DrawLine(vectors[2], vectors[3]);
+                            break;
+                        case 11:
+                            DrawLine(vectors[0], vectors[1]);
+                            break;
+                        case 12:
+                            DrawLine(vectors[1], vectors[3]);
+                            break;
+                        case 13:
+                            DrawLine(vectors[1], vectors[2]);
+                            break;
+                        case 14:
+                            DrawLine(vectors[2], vectors[3]);
+                            break;
                     }
+                }
+        }
 
+        private void RemoveOldLines()
+        {
+            listOfLinesToRemove.Clear();
+            foreach (var item in canvas.Children)
+                if (item.GetType() == typeof(Line))
+                    listOfLinesToRemove.Add(item as Line);
 
-                    listOfLinesToRemove.Clear();
-                    foreach (var item in canvas.Children)
-                        if (item.GetType() == typeof(Line))
-                            listOfLinesToRemove.Add(item as Line);
+            foreach (Line item in listOfLinesToRemove)
+                canvas.Children.Remove(item);
+        }
 
-                    foreach (Line item in listOfLinesToRemove)
-                        canvas.Children.Remove(item);
-
-
-                    for (int i = 0; i < mainWindowModel.Field.GetLength(0) - 1; i++)
-                        for (int j = 0; j < mainWindowModel.Field.GetLength(1) - 1; j++)
-                        {
-                            Vector[] vectors = mainWindowModel.GetVectors(i, j);
-
-                            switch (mainWindowModel.GetState(i, j))
-                            {
-                                case 1:
-                                    DrawLine(vectors[2], vectors[3]);
-                                    break;
-                                case 2:
-                                    DrawLine(vectors[1], vectors[2]);
-                                    break;
-                                case 3:
-                                    DrawLine(vectors[1], vectors[3]);
-                                    break;
-                                case 4:
-                                    DrawLine(vectors[0], vectors[1]);
-                                    break;
-                                case 5:
-                                    DrawLine(vectors[0], vectors[3]);
-                                    DrawLine(vectors[1], vectors[2]);
-                                    break;
-                                case 6:
-                                    DrawLine(vectors[0], vectors[2]);
-                                    break;
-                                case 7:
-                                    DrawLine(vectors[0], vectors[3]);
-                                    break;
-                                case 8:
-                                    DrawLine(vectors[0], vectors[3]);
-                                    break;
-                                case 9:
-                                    DrawLine(vectors[0], vectors[2]);
-                                    break;
-                                case 10:
-                                    DrawLine(vectors[0], vectors[1]);
-                                    DrawLine(vectors[2], vectors[3]);
-                                    break;
-                                case 11:
-                                    DrawLine(vectors[0], vectors[1]);
-                                    break;
-                                case 12:
-                                    DrawLine(vectors[1], vectors[3]);
-                                    break;
-                                case 13:
-                                    DrawLine(vectors[1], vectors[2]);
-                                    break;
-                                case 14:
-                                    DrawLine(vectors[2], vectors[3]);
-                                    break;
-                            }
-                        }
-
-                }));
-
-                Thread.Sleep(100);
+        private void DrawCircles()
+        {
+            if (false)
+            {
+                for (int i = 0; i < mainWindowModel.Field.GetLength(0); i++)
+                    for (int j = 0; j < mainWindowModel.Field.GetLength(1); j++)
+                        ellipses[i, j].Opacity = (mainWindowModel.Field[i, j]);
             }
         }
 

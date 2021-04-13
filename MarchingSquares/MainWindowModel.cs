@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MarchingSquares
@@ -12,7 +8,7 @@ namespace MarchingSquares
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
-        private int rez = 30;
+        private int rez = 20;
         private float[,] field;
         private readonly float increment = 0.1f;
         private float zOff = 0;
