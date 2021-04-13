@@ -13,7 +13,23 @@
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="500" Width="500">
-    <Canvas x:Name="canvas">
-        
-    </Canvas>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Canvas x:Name="canvas"/>
+
+        <DockPanel Grid.Row="1" LastChildFill="False" HorizontalAlignment="Center">
+            <StackPanel Margin="10">
+                <TextBlock Text="Resolution" Foreground="White"/>
+                <Slider x:Name="name" Value="20"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <TextBlock Text="Hello World" Foreground="White"/>
+                <Slider x:Name="name2" Value="20"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
 </Window>
