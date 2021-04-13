@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace MarchingSquares
 {
-    class MainWindowModel
+    class MainWindowModel : INotifyPropertyChanged
     {
         private int cols;
         private int rows;
@@ -16,7 +17,11 @@ namespace MarchingSquares
         public int Rez
         {
             get { return rez; }
-            set { rez = value; }
+            set 
+            { 
+                rez = value; 
+                NotifyPropertyChanged("Rez"); 
+            }
         }
 
         public float[,] Field
@@ -66,5 +71,14 @@ namespace MarchingSquares
 
             return new[] { new Vector(x + rez * 0.5, y), new Vector(x + rez, y + rez * 0.5), new Vector(x + rez * 0.5, y + rez), new Vector(x, y + rez * 0.5)};
         }
+
+        #region Property Changed Event Handler 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
     }
 }

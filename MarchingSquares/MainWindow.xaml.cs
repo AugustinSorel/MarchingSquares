@@ -23,7 +23,7 @@ namespace MarchingSquares
 
         private void Window_ContentRendered(object sender, System.EventArgs e)
         {
-            new ViewModelMainWindow(canvas);
+            this.DataContext = new ViewModelMainWindow(canvas);
         }
     }
 }

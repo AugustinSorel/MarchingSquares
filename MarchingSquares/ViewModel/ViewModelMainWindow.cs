@@ -17,6 +17,13 @@ namespace MarchingSquares
         private MainWindowModel mainWindowModel;
         private bool ShowCircle;
 
+        public MainWindowModel MainWindowModel
+        {
+            get { return mainWindowModel; }
+            set { mainWindowModel = value; }
+        }
+
+
         public ViewModelMainWindow(Canvas canvas)
         {
             this.canvas = canvas;
