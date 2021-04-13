@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 
 namespace MarchingSquares
 {
-    class ViewModelMainWindow
+    class ViewModelMainWindow : INotifyPropertyChanged
     {
         private Ellipse[,] ellipses;
         List<Line> listOfLinesToRemove;
@@ -20,12 +20,26 @@ namespace MarchingSquares
         public MainWindowModel MainWindowModel
         {
             get { return mainWindowModel; }
-            set { mainWindowModel = value; }
+            set 
+            { 
+                mainWindowModel = value;
+                NotifyPropertyChanged("MainWindowModel"); //remove INotify
+            }
         }
+
+        private int s;
+
+        public int S
+        {
+            get { return s; }
+            set { s = value; NotifyPropertyChanged("S"); }
+        }
+
 
 
         public ViewModelMainWindow(Canvas canvas)
         {
+            s = 20;
             this.canvas = canvas;
             ShowCircle = false;
             BackgroundWorker worker = new BackgroundWorker();
@@ -76,6 +90,7 @@ namespace MarchingSquares
                 mainWindowModel.SetFields();
                 DrawToTheCanvas();
                 GetSleep();
+                S = 200;
             }
         }
 
@@ -189,5 +204,13 @@ namespace MarchingSquares
             };
             canvas.Children.Add(line);
         }
+
+        #region Property Changed Event Handler 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }

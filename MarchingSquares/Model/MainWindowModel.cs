@@ -9,7 +9,7 @@ namespace MarchingSquares
         private int cols;
         private int rows;
         private OpenSimplexNoise noise;
-        private int rez = 15;
+        private int rez;
         private float[,] field;
         private readonly float increment = 0.1f;
         private float zOff = 0;
@@ -32,6 +32,7 @@ namespace MarchingSquares
 
         public MainWindowModel(double actualWidth, double actualHeight)
         {
+            Rez = 20;
             cols = 1 + (int)actualWidth / rez;
             rows = 1 + (int)actualHeight / rez;
             field = new float[cols, rows];
