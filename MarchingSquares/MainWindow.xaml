@@ -13,6 +13,15 @@
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="500" Width="500">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MarchingSquares;component/Dictio/MainDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -23,12 +32,12 @@
 
         <DockPanel Grid.Row="1" LastChildFill="False" HorizontalAlignment="Center">
             <StackPanel Margin="10">
-                <TextBlock Text="Resolution" Foreground="White"/>
-                <Slider x:Name="name" Value="20"/>
+                <TextBlock Text="Resolution"/>
+                <Slider x:Name="name" Value="20" Style="{StaticResource CustomSlider}"/>
             </StackPanel>
             <StackPanel Margin="10">
-                <TextBlock Text="Hello World" Foreground="White"/>
-                <Slider x:Name="name2" Value="20"/>
+                <TextBlock Text="Hello World"/>
+                <Slider x:Name="name2" Value="20" Style="{StaticResource CustomSlider}"/>
             </StackPanel>
         </DockPanel>
     </Grid>
