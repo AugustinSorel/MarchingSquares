@@ -35,9 +35,8 @@
             <TextBlock>
                 <Run Text="Resolution: "/>
                 <Run Text="{Binding Path=MainWindowModel.Rez, UpdateSourceTrigger=PropertyChanged}"/>
-                <Run Text=" Yes"/>
             </TextBlock>
-            <Slider Style="{StaticResource CustomSlider}"/>
+            <Slider Style="{StaticResource CustomSlider}" Value="{Binding Path=MainWindowModel.Rez, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Increment"/>
             <Slider Style="{StaticResource CustomSlider}"/>

@@ -53,6 +53,7 @@ namespace MarchingSquares
                 }
             }
             zOff += 0.03f;
+            Rez += 1;
         }
 
         internal int GetState(int i, int j)
