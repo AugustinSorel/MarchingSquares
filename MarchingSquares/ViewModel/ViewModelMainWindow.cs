@@ -23,7 +23,7 @@ namespace MarchingSquares
             set 
             { 
                 mainWindowModel = value;
-                NotifyPropertyChanged("MainWindowModel"); //remove INotify
+                NotifyPropertyChanged("MainWindowModel");
             }
         }
 
