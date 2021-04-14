@@ -19,8 +19,12 @@ namespace MarchingSquares
             get { return rez; }
             set 
             { 
-                rez = value; 
-                NotifyPropertyChanged("Rez"); 
+                if (value != rez && value > 9 && value < 51)
+                {
+                    rez = value;
+                    NotifyPropertyChanged("Rez"); 
+                }
+
             }
         }
 
