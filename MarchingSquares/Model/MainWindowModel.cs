@@ -12,6 +12,8 @@ namespace MarchingSquares
         private int rez;
         private float[,] field;
         private readonly float increment = 0.1f;
+        private readonly double actualWidth;
+        private readonly double actualHeight;
         private float zOff = 0;
 
         public int Rez
@@ -22,6 +24,9 @@ namespace MarchingSquares
                 if (value != rez && value > 9 && value < 51)
                 {
                     rez = value;
+                    cols = 1 + (int)actualWidth / rez;
+                    rows = 1 + (int)actualHeight / rez;
+                    field = new float[cols, rows];
                     NotifyPropertyChanged("Rez"); 
                 }
 
@@ -41,6 +46,8 @@ namespace MarchingSquares
             rows = 1 + (int)actualHeight / rez;
             field = new float[cols, rows];
             noise = new OpenSimplexNoise();
+            this.actualWidth = actualWidth;
+            this.actualHeight = actualHeight;
         }
 
         internal void SetFields()
