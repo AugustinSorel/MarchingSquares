@@ -27,19 +27,8 @@ namespace MarchingSquares
             }
         }
 
-        private int s;
-
-        public int S
-        {
-            get { return s; }
-            set { s = value; NotifyPropertyChanged("S"); }
-        }
-
-
-
         public ViewModelMainWindow(Canvas canvas)
         {
-            s = 20;
             this.canvas = canvas;
             ShowCircle = false;
             BackgroundWorker worker = new BackgroundWorker();
@@ -49,7 +38,7 @@ namespace MarchingSquares
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            mainWindowModel = new MainWindowModel(canvas.ActualWidth, canvas.ActualHeight);
+            MainWindowModel = new MainWindowModel(canvas.ActualWidth, canvas.ActualHeight);
 
             listOfLinesToRemove = new List<Line>();
             ellipses = new Ellipse[mainWindowModel.Field.GetLength(0), mainWindowModel.Field.GetLength(1)];
@@ -90,7 +79,6 @@ namespace MarchingSquares
                 mainWindowModel.SetFields();
                 DrawToTheCanvas();
                 GetSleep();
-                S = 200;
             }
         }
 
