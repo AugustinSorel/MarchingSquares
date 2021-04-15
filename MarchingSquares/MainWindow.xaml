@@ -48,6 +48,8 @@
                 </Path>
             </Button>
 
+            <CheckBox VerticalAlignment="Center" Content="Circle" Foreground="White"/>
+
             <TextBlock>
                 <Run Text="Resolution: "/>
                 <Run Text="{Binding Path=MainWindowModel.Rez, UpdateSourceTrigger=PropertyChanged}"/>
