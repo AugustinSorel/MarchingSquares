@@ -43,9 +43,9 @@
 
             <TextBlock>
                 <Run Text="Speed: "/>
-                <Run Text="{Binding Path=Speed, UpdateSourceTrigger=PropertyChanged}"/>
+                <Run Text="{Binding Path=MainWindowModel.Speed, UpdateSourceTrigger=PropertyChanged}"/>
             </TextBlock>
-            <Slider Style="{StaticResource CustomSlider}" Value="{Binding Path=Speed, UpdateSourceTrigger=PropertyChanged}" Minimum="30" Maximum="1000"/>
+            <Slider Style="{StaticResource CustomSlider}" Value="{Binding Path=MainWindowModel.Speed, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="1"/>
         </DockPanel>
     </Grid>
 </Window>

@@ -39,9 +39,26 @@ namespace MarchingSquares
             set { field = value; }
         }
 
+        private float speed;
+
+        public float Speed
+        {
+            get { return (float)Math.Round(speed, 3); }
+            set 
+            {
+                if (value != speed && value > -1 && value < 1)
+                {
+                    speed = value;
+                    NotifyPropertyChanged("Speed");
+                }
+            }
+        }
+
+
         public MainWindowModel(double actualWidth, double actualHeight)
         {
             Rez = 20;
+            Speed = 0.03f;
             cols = 1 + (int)actualWidth / rez;
             rows = 1 + (int)actualHeight / rez;
             field = new float[cols, rows];
@@ -63,7 +80,7 @@ namespace MarchingSquares
                     yOff += increment;
                 }
             }
-            zOff += 0.03f;
+            zOff += speed;
         }
 
         internal int GetState(int i, int j)
