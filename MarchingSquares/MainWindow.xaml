@@ -31,6 +31,22 @@
         <Canvas x:Name="canvas"/>
 
         <DockPanel Grid.Row="1" LastChildFill="False" HorizontalAlignment="Center">
+            
+            <Button Background="Transparent">
+                <Path Height="30" Width="30" Stroke="Green" Stretch="Uniform" Fill="LightGreen" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 0 0 L 0 13 L 10 6 Z"/>
+                    </Path.Data>
+                </Path>
+            </Button>
+
+            <Button Background="Transparent">
+                <Path Height="30" Width="30" Stroke="Red" Stretch="Uniform" Fill="DarkRed" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 0 0 L 0 13 L 13 13 L 13 0 Z"/>
+                    </Path.Data>
+                </Path>
+            </Button>
 
             <TextBlock>
                 <Run Text="Resolution: "/>
