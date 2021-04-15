@@ -41,8 +41,11 @@
             <TextBlock Text="Increment"/>
             <Slider Style="{StaticResource CustomSlider}"/>
 
-            <TextBlock Text="Speed"/>
-            <Slider Style="{StaticResource CustomSlider}"/>
+            <TextBlock>
+                <Run Text="Speed: "/>
+                <Run Text="{Binding Path=Speed, UpdateSourceTrigger=PropertyChanged}"/>
+            </TextBlock>
+            <Slider Style="{StaticResource CustomSlider}" Value="{Binding Path=Speed, UpdateSourceTrigger=PropertyChanged}" Minimum="30" Maximum="1000"/>
         </DockPanel>
     </Grid>
 </Window>

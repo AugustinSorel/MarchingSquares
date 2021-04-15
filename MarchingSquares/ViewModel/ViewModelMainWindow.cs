@@ -45,7 +45,7 @@ namespace MarchingSquares
         {
             this.canvas = canvas;
             ShowCircle = false;
-            speed = 100;
+            Speed = 100;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
