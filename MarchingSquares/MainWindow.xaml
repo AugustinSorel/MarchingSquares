@@ -38,8 +38,11 @@
             </TextBlock>
             <Slider Style="{StaticResource CustomSlider}" Value="{Binding Path=MainWindowModel.Rez, UpdateSourceTrigger=PropertyChanged}" Minimum="10" Maximum="50"/>
 
-            <TextBlock Text="Increment"/>
-            <Slider Style="{StaticResource CustomSlider}"/>
+            <TextBlock>
+                <Run Text="Increment: "/>
+                <Run Text="{Binding Path=MainWindowModel.Increment, UpdateSourceTrigger=PropertyChanged}"/>
+            </TextBlock>
+            <Slider Style="{StaticResource CustomSlider}"  Value="{Binding Path=MainWindowModel.Increment, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="1"/>
 
             <TextBlock>
                 <Run Text="Speed: "/>

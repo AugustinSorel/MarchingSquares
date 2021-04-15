@@ -60,7 +60,7 @@ namespace MarchingSquares
             {
                 if (value != increment && value > -1 && value < 1)
                 {
-                    increment = value;
+                    increment = (float)Math.Round(value, 1);
                     NotifyPropertyChanged("Increment");
                 }
             }
@@ -72,7 +72,7 @@ namespace MarchingSquares
         {
             Rez = 20;
             Speed = 0.03f;
-            Increment = 0.01f;
+            Increment = 0.1f;
             cols = 1 + (int)actualWidth / rez;
             rows = 1 + (int)actualHeight / rez;
             field = new float[cols, rows];
