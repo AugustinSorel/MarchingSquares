@@ -48,7 +48,7 @@
                 </Path>
             </Button>
 
-            <CheckBox VerticalAlignment="Center" Content="Circle" Foreground="White"/>
+            <CheckBox VerticalAlignment="Center" Content="Circle"/>
 
             <TextBlock>
                 <Run Text="Resolution: "/>
