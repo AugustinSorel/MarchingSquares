@@ -48,7 +48,7 @@
                 </Path>
             </Button>
 
-            <CheckBox VerticalAlignment="Center" Content="Circle"/>
+            <CheckBox VerticalAlignment="Center" Content="Circle" IsChecked="{Binding Path=ShowCircle, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock>
                 <Run Text="Resolution: "/>

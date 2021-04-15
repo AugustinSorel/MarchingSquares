@@ -15,7 +15,7 @@ namespace MarchingSquares
         List<Line> listOfLinesToRemove;
         private readonly Canvas canvas;
         private MainWindowModel mainWindowModel;
-        private bool ShowCircle;
+        private bool showCircle;
       
         public MainWindowModel MainWindowModel
         {
@@ -27,10 +27,30 @@ namespace MarchingSquares
             }
         }
 
+        public bool ShowCircle
+        {
+            get { return showCircle; }
+            set 
+            {
+                if (value != showCircle)
+                {
+                    showCircle = value;
+
+                    if (showCircle)
+                        CreateCircle2DArray();
+                    else
+                        canvas.Children.Clear();
+
+
+                    NotifyPropertyChanged("ShowCircle");
+                }
+            }
+        }
+
         public ViewModelMainWindow(Canvas canvas)
         {
             this.canvas = canvas;
-            ShowCircle = false;
+            showCircle = false;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
@@ -50,7 +70,7 @@ namespace MarchingSquares
 
         private void CreateCircle2DArray()
         {
-            if (ShowCircle)
+            if (showCircle)
             {
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
