@@ -11,10 +11,11 @@ namespace MarchingSquares
         private OpenSimplexNoise noise;
         private int rez;
         private float[,] field;
-        private readonly float increment = 0.1f;
+        private float increment;
         private readonly double actualWidth;
         private readonly double actualHeight;
         private float zOff = 0;
+        private float speed;
 
         public int Rez
         {
@@ -39,8 +40,6 @@ namespace MarchingSquares
             set { field = value; }
         }
 
-        private float speed;
-
         public float Speed
         {
             get { return (float)Math.Round(speed, 3); }
@@ -54,11 +53,26 @@ namespace MarchingSquares
             }
         }
 
+        public float Increment
+        {
+            get { return increment; }
+            set 
+            {
+                if (value != increment && value > -1 && value < 1)
+                {
+                    increment = value;
+                    NotifyPropertyChanged("Increment");
+                }
+            }
+        }
+
+
 
         public MainWindowModel(double actualWidth, double actualHeight)
         {
             Rez = 20;
             Speed = 0.03f;
+            Increment = 0.01f;
             cols = 1 + (int)actualWidth / rez;
             rows = 1 + (int)actualHeight / rez;
             field = new float[cols, rows];
