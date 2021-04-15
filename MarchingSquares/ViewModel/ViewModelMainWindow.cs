@@ -16,6 +16,20 @@ namespace MarchingSquares
         private readonly Canvas canvas;
         private MainWindowModel mainWindowModel;
         private bool ShowCircle;
+        private int speed;
+
+        public int Speed
+        {
+            get { return speed; }
+            set 
+            {
+                if (value > 50 && value < 1000 && value != speed)
+                {
+                    speed = value;
+                    NotifyPropertyChanged("Speed");
+                }
+            }
+        }
 
         public MainWindowModel MainWindowModel
         {
@@ -31,6 +45,7 @@ namespace MarchingSquares
         {
             this.canvas = canvas;
             ShowCircle = false;
+            speed = 100;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
@@ -93,9 +108,9 @@ namespace MarchingSquares
             }));
         }
 
-        private static void GetSleep()
+        private void GetSleep()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(speed);
         }
 
         private void AddNewLines()
