@@ -24,15 +24,18 @@ Typical applications include the contour lines on topographic maps or the genera
 
 ## video
 
-[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
+[![Everything Is AWESOME](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)
 
 ## Images
 
-### Full Screen
-![alt text](https://github.com/AugustinSorel/DoublePendulum/blob/master/TestingImages/Capture%20d%E2%80%99%C3%A9cran%202021-04-01%20213444.png?raw=true)
+### Default Value
+![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)
 
-### Small Screen
-![alt text](https://github.com/AugustinSorel/DoublePendulum/blob/master/TestingImages/Capture%20d%E2%80%99%C3%A9cran%202021-04-01%20213512.png?raw=true)
+### Default Value with circle
+![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture2.PNG)
 
-### Only the Double Pendulum
-![alt text](https://github.com/AugustinSorel/DoublePendulum/blob/master/TestingImages/Capture%20d%E2%80%99%C3%A9cran%202021-04-01%20213240.png?raw=true)
+### Resolution 11
+![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture3.PNG)
+
+### Increment 0.6
+![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture4.PNG)
