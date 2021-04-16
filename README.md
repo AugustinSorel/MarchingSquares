@@ -22,9 +22,9 @@ Typical applications include the contour lines on topographic maps or the genera
 * [Wikipedia](https://en.wikipedia.org/wiki/Marching_squares)
 * [Youtube](https://youtu.be/K_Rlfm4sDlg) - Testing video.
 
-## video
+## Youtube Video
 
-[![Everything Is AWESOME](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)
+[![Everything Is AWESOME](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture.PNG)](https://www.youtube.com/watch?v=ONhnbyC9sJg)
 
 ## Images
 
