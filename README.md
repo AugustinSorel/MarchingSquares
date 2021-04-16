@@ -39,3 +39,6 @@ Typical applications include the contour lines on topographic maps or the genera
 
 ### Increment 0.6
 ![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture4.PNG)
+
+### Cutting of the squares
+![alt text](https://github.com/AugustinSorel/MarchingSquares/blob/master/Images/Capture5.PNG)
